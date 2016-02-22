@@ -1,0 +1,87 @@
+spring:
+  profiles.active: dev 
+---
+# HTTP Server
+server:
+  port: 8282 # HTTP (Tomcat) port
+
+#profile config  
+spring:
+  application:
+    name: article-microservice-1
+  profiles: dev
+
+#activemq config
+  activemq:
+    broker-url: tcp://localhost:61616
+    password: admin
+    user:  admin
+
+#mysql config    
+  datasource:
+    username: root
+    password:
+    url: jdbc:mysql://localhost/mt_article_microservice_dev
+    driverClassName: com.mysql.jdbc.Driver 
+
+#jpa config
+  jpa:
+    hibernate:
+      ddlAuto: update
+      namingStrategy: org.hibernate.cfg.EJB3NamingStrategy
+      dialect: org.hibernate.dialect.MySQL5Dialect
+    show-sql: false
+
+#activemq queue for logging   
+logging:
+  queue: 
+   name: logging.queue
+
+#activemq topic for article events   
+article:
+  topic: 
+   name: article.event.topic 
+
+# Discovery Server Access  
+eureka:
+  instance:
+    virtual-host-name: article-microservice 
+    metadata-map:
+      instanceId: ${spring.application.name}:${spring.application.instance_id:1}
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+---
+# HTTP Server
+server:
+  port: 8282 # HTTP (Tomcat) port
+
+#profile config  
+spring:
+  application:
+    name: article-microservice-1-${random.value}
+  profiles: prod
+  
+# Discovery Server Access  
+eureka:
+  instance:
+    virtual-host-name: article-microservice 
+    metadata-map:
+      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+#...
+---
+# HTTP Server
+server:
+  port: 8282 # HTTP (Tomcat) port
+
+spring:
+#profile config
+  profiles: docker
+  application:
+    name: article-microservice-1
+# ...
+
+
