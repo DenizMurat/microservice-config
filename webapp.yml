@@ -50,7 +50,7 @@ eureka:
             
 config:
     changed:
-        test: change!            
+        test: test change!            
 ---  
 spring:
   profiles: prod
