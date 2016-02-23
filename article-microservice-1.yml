@@ -3,7 +3,7 @@ spring:
 ---
 # HTTP Server
 server:
-  port: 8282 # HTTP (Tomcat) port
+  port: 8989 # HTTP (Tomcat) port
 
 #profile config  
 spring:
