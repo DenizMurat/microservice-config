@@ -3,7 +3,7 @@ spring:
 ---
 # HTTP Server
 server:
-  port: 8989 # HTTP (Tomcat) port
+  port: 8282 # HTTP (Tomcat) port
 
 #profile config  
 spring:
@@ -51,6 +51,10 @@ eureka:
     client:
         serviceUrl:
             defaultZone: http://localhost:8761/eureka/
+            
+config:
+    changed:
+        test: has changed
 ---
 # HTTP Server
 server:
