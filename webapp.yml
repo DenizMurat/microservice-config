@@ -1,0 +1,67 @@
+# profile default 
+spring:
+  profiles.active: dev
+
+---
+# developement profile
+spring:
+  profiles: dev
+#JSP-Template location 
+  view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+#activemq config
+  activemq:
+    broker-url: tcp://localhost:61616
+    password: admin
+    user:  admin
+#define activemq logging queue    
+logging:
+  queue: 
+   name: logging.queue
+   
+# port definition       
+server:
+  port: 8080 # HTTP (Tomcat) port
+
+#setting for using direct the microservices or via the api-gateway
+microservice:
+    user-microservice:
+      via-api-gateway: true # false uses the user-microservice directly
+    article-microservice:
+      service:
+        url: http://api-gateway/articleservice #directly e.g. http://article-microservice-1
+        id:  api-gateway  #directly e.g. article-microservice-1
+    order-microservice:
+      service:
+        url: http://api-gateway/orderservice #directly e.g. http://order-microservice-sync
+        id: api-gateway  #directly e.g. order-microservice-sync
+
+#sets the order-microservice to the header for the api-gateway   
+order-microservice:
+  to:
+    use: order-microservice-async  #default order-ms set: order-microservice-sync, order-microservice-async or order-microservice-comp
+
+# Discovery Server Access  
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+            
+config:
+    changed:
+        test: has changed            
+---  
+spring:
+  profiles: prod
+  view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+server:
+  port: 8081 # HTTP (Tomcat) port
+# Discovery Server Access  
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+#...
