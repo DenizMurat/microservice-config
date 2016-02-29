@@ -24,10 +24,10 @@ logging:
 server:
   port: 8080 # HTTP (Tomcat) port
 
-#setting for using direct the microservices or via the api-gateway
+#setting for directly using the microservices or via the api-gateway
 microservice:
     user-microservice:
-      via-api-gateway: true # false uses the user-microservice directly
+      via-api-gateway: true # false uses the user-microservice direct
     article-microservice:
       service:
         url: http://api-gateway/articleservice #directly e.g. http://article-microservice-1
